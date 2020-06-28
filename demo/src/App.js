@@ -1,10 +1,10 @@
 import React from 'react';
-import Hello from 'animation-menu';
+import Menu from 'animation-menu';
 
 function App() {
   return (
     <div className="App">
-      <Hello text="React" />
+      <Menu color="green" onClick={() => console.log('Menu clicked')} />
     </div>
   );
 }
