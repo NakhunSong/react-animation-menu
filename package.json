@@ -1,8 +1,13 @@
 {
-  "name": "animation-menu",
-  "version": "0.1.2",
+  "name": "react-animation-menu",
+  "version": "0.1.4",
   "description": "Then Menu that is transformed when it has clicked",
-  "keywords": ["react", "library", "menu", "animation"],
+  "keywords": ["npm", "react", "ui", "library", "menu", "animation"],
+  "homepage": "https://github.com/Nakhunsong/animation-menu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nakhunsong/animation-menu"
+  },
   "scripts": {
     "build": "rollup -c",
     "test": "jest"
