@@ -4,7 +4,19 @@ import styled from 'styled-components';
 interface StickProps {
   open: boolean;
   color?: string;
+  onClick?: any;
 };
+
+const StickOuterWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+`;
 
 const StickWrapper = styled.div<StickProps>`
   width: 50px;
@@ -54,11 +66,15 @@ const StickWrapper = styled.div<StickProps>`
 `;
 
 const Stick = (props: any) => {
-  const { open, color } = props;
-  
+  const { open, color, onClick } = props;
+
   return (
-    <StickWrapper open={open} color={color || undefined}>
-    </StickWrapper>
+    <StickOuterWrapper onClick={onClick}>
+      <StickWrapper
+        open={open}
+        color={color || undefined}
+      />
+    </StickOuterWrapper>
   );
 }
 

@@ -1,20 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Stick from './Stick';
+import { MenuList } from './Menu';
 
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  transition: all .5s ease-in-out;
-`;
+export { MenuList };
 
 interface IProps {
   color?: string;
+  elements?: any;
   onClick: () => void
 }
 
@@ -22,6 +15,21 @@ interface IState {
   open: boolean;
   color: string;
 }
+
+interface InnerProps {
+  open: boolean;
+};
+
+const AnimationMenuWrapper = styled.div`
+  position: relative;
+`;
+
+const Inner = styled.div<InnerProps>`
+  opacity: ${props => props.open ? '100%' : '0%'};
+  transition: all .5s ease-in-out;
+  position: absolute;
+  left: 15px;
+`;
 
 class AnimationMenu extends React.PureComponent<IProps, IState> {
   private menuRef: React.RefObject<HTMLInputElement>;
@@ -96,14 +104,22 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
   }
   
   render() {
-    const { open, color } = this.state
+    const { open, color } = this.state;
+    const { elements } = this.props;
+
     return (
-      <Wrapper
+      <AnimationMenuWrapper
         ref={this.menuRef}
-        onClick={this.handleClick}
       >
-        <Stick open={open} color={color} />
-      </Wrapper>
+        <Stick
+          open={open}
+          color={color} 
+          onClick={this.handleClick}
+        />
+        <Inner open={open}>
+          {elements}
+        </Inner>
+      </AnimationMenuWrapper>
     )
   }
 }
