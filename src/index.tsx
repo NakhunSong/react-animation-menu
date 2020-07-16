@@ -8,12 +8,14 @@ export { MenuList };
 interface IProps {
   color?: string;
   elements?: any;
-  onClick: () => void
+  duration?: number;
+  onClick?: () => void
 }
 
 interface IState {
   open: boolean;
   color: string;
+  duration: string;
 }
 
 interface InnerProps {
@@ -38,6 +40,7 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
     this.state = {
       open: false,
       color: props.color || 'black',
+      duration: (Number(props.duration || 500) / 1000).toFixed(2),
     }
     this.menuRef = React.createRef();
     this.closeMenu = this.closeMenu.bind(this);
@@ -89,7 +92,9 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
         open: !prevState.open
       };
     });
-    onClick();
+    if (onClick) {
+      onClick();
+    }
   }
 
   handleClickOutside(e: any) {
@@ -104,7 +109,7 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
   }
   
   render() {
-    const { open, color } = this.state;
+    const { open, color, duration } = this.state;
     const { elements } = this.props;
 
     return (
@@ -113,7 +118,8 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
       >
         <Stick
           open={open}
-          color={color} 
+          color={color}
+          duration={duration}
           onClick={this.handleClick}
         />
         <Inner open={open}>
