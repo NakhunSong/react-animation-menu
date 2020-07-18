@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const GroupWrapper = styled.div`
   position: absolute;
-  top: 80px;
   background-color: white;
   border: 1px solid #e9e9e9;
   padding: 10px;

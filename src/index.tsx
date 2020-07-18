@@ -16,10 +16,15 @@ interface IState {
   open: boolean;
   color: string;
   duration: string;
+  width: number;
+  height: number;
+  xOffset: number;
 }
 
 interface InnerProps {
   open: boolean;
+  width: number;
+  xOffset: number;
 };
 
 const AnimationMenuWrapper = styled.div`
@@ -30,7 +35,10 @@ const Inner = styled.div<InnerProps>`
   opacity: ${props => props.open ? '100%' : '0%'};
   transition: all .5s ease-in-out;
   position: absolute;
-  left: 15px;
+  top: ${props => props.width
+    ? props.width + 30
+    : 80}px;
+  left: ${props => props.xOffset || 15}px;
 `;
 
 class AnimationMenu extends React.PureComponent<IProps, IState> {
@@ -41,7 +49,10 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
       open: false,
       color: props.color || 'black',
       duration: (Number(props.duration || 500) / 1000).toFixed(2),
-    }
+      width: props.width || 50,
+      height: props.height || 6,
+      xOffset: props.xOffset || 15,
+    };
     this.menuRef = React.createRef();
     this.closeMenu = this.closeMenu.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -109,7 +120,14 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
   }
   
   render() {
-    const { open, color, duration } = this.state;
+    const {
+      open,
+      color,
+      duration,
+      width,
+      height,
+      xOffset,
+    } = this.state;
     const { elements } = this.props;
 
     return (
@@ -120,9 +138,15 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
           open={open}
           color={color}
           duration={duration}
+          width={width}
+          height={height}
           onClick={this.handleClick}
         />
-        <Inner open={open}>
+        <Inner
+          open={open}
+          width={width}
+          xOffset={xOffset}
+        >
           {elements}
         </Inner>
       </AnimationMenuWrapper>

@@ -3,12 +3,15 @@ import styled from 'styled-components';
 
 interface StickWrapperProps {
   duration: string;
+  width: number;
 }
 
 interface StickProps {
   open: boolean;
   color?: string;
   duration: string;
+  width: number;
+  height: number;
   onClick?: any;
 };
 
@@ -16,16 +19,20 @@ const StickOuterWrapper = styled.div<StickWrapperProps>`
   position: absolute;
   display: flex;
   justify-content: center;
-  align-items: center;  
-  width: 80px;
-  height: 80px;
+  align-items: center;
+  width: ${props => props.width
+    ? props.width + 30
+    : 50}px;
+  height: ${props => props.width
+    ? props.width + 30
+    : 6}px;
   cursor: pointer;
   transition: all ${props => props.duration}s ease-in-out;
 `;
 
 const StickWrapper = styled.div<StickProps>`
-  width: 50px;
-  height: 6px;
+  width: ${props => props.width || 50}px;
+  height: ${props => props.height || 6}px;
   background: ${props => props.color || 'white'};
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
@@ -35,8 +42,8 @@ const StickWrapper = styled.div<StickProps>`
   &::after {
     content: '';
     position: absolute;
-    width: 50px;
-    height: 6px;
+    width: ${props => props.width || 50}px;
+    height: ${props => props.height || 6}px;
     background: ${props => props.color || 'white'};
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
@@ -71,17 +78,27 @@ const StickWrapper = styled.div<StickProps>`
 `;
 
 const Stick = (props: any) => {
-  const { open, color, duration, onClick } = props;
+  const {
+    open,
+    color,
+    duration,
+    width,
+    height,
+    onClick,
+  } = props;
 
   return (
     <StickOuterWrapper
       duration={duration}
+      width={width}
       onClick={onClick}
     >
       <StickWrapper
         open={open}
         color={color || undefined}
         duration={duration}
+        width={width}
+        height={height}
       />
     </StickOuterWrapper>
   );
