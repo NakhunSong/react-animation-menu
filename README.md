@@ -10,7 +10,7 @@ yarn add react-animation-menu
 
 ## Usage
 ```jsx
-import Reacf from 'react'
+import React, { useState, useCallback } from 'react'
 import Menu, { MenuList } from 'react-animation-menu'
 import { Group, Item } = MenuList
 
@@ -23,9 +23,11 @@ const elements = (
 )
 
 export default function App() {
-  const handleClick = () => {
-    console.log('click')
-  }
+  const [open, setOpen] = useState(false);
+
+  const handleClick = useCallback(() => {
+    setOpen(!open);
+  }, [open]);
 
   return (
     <Menu
@@ -79,6 +81,12 @@ export default function App() {
 - This prop affects x-offset of the text list wrapper on the menu.
 ```jsx
 <Menu xOffset="30" />
+```
+
+#### yOffset: Number | default 15
+- This prop affects y-offset of the text list wrapper on the menu.
+```jsx
+<Menu yOffset="30" />
 ```
 
 #### onClick : function | default undefined
