@@ -1,4 +1,7 @@
 # react-animation-menu
+This is a Menu Icon Component. The Icon is transformed and the Menu List appear or disappear with animation effect when it is clicked.
+
+![alt text](./static/img/photo.gif)
 
 ## Install
 ```
