@@ -8,9 +8,39 @@ npm i react-animation-menu
 yarn add react-animation-menu
 ```
 
-# Props
+## Usage
+```jsx
+import Reacf from 'react'
+import Menu, { MenuList } from 'react-animation-menu'
+import { Group, Item } = MenuList
 
-## Icon
+const elements = (
+  <Group>
+    <Item onClick={() => console.log('Hello')}>Hello</Item>
+    <Item>Menu2</Item>
+    <Item>Menu3</Item>
+  </Group>
+)
+
+export default function App() {
+  const handleClick = () => {
+    console.log('click')
+  }
+
+  return (
+    <Menu
+      color="green"
+      elements={elements}
+      duration={400}
+      width={70}
+      xOffset={40}
+      onClick={handleClick}
+    />
+  )
+}
+```
+
+## Props
 
 #### color : string | default "black"
 ```jsx
@@ -34,7 +64,7 @@ yarn add react-animation-menu
 <Menu height="10" />
 ```
 
-#### elements: children
+#### elements: children | default null
 ```jsx
 <Menu
   elements={(
@@ -45,13 +75,13 @@ yarn add react-animation-menu
 />
 ```
 
+#### xOffset: Number | default 15
+- This prop affects x-offset of the text list wrapper on the menu.
+```jsx
+<Menu xOffset="30" />
+```
+
 #### onClick : function | default undefined
 ```jsx
 <Menu onClick={handleClick} />
-```
-## Menu
-
-#### xOffset: Number | default 15
-```jsx
-<Menu xOffset="30" />
 ```

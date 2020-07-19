@@ -4,14 +4,17 @@ import styled from 'styled-components';
 const GroupWrapper = styled.div`
   position: absolute;
   background-color: white;
-  border: 1px solid #e9e9e9;
   padding: 10px;
 `;
 
 const ItemWrapper = styled.div`
   color: green;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+  }
   & + & {
-    margin-top: 10px;
+    margin-top: 30px;
   }
 `;
 

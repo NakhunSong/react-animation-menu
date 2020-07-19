@@ -21,19 +21,36 @@ interface IState {
   xOffset: number;
 }
 
-interface InnerProps {
+interface AnimationMenuWrapperProps {
   open: boolean;
+}
+
+interface OuterProps {
+  open: boolean;
+}
+
+interface InnerProps {
   width: number;
   xOffset: number;
 };
 
-const AnimationMenuWrapper = styled.div`
-  position: relative;
+const AnimationMenuWrapper = styled.div<AnimationMenuWrapperProps>`
+  position: absolute;
+`;
+
+const Outer = styled.div<OuterProps>`
+  position: absolute;
+  transition: all .4s ease-in-out;
+  width: 300px;
+  height: 100vh;
+  ${props => props.open
+    ? 'left: 0;'
+    : 'left: -300px;'}
+  background: white;
+  border-right: 1px solid #e9e9e9;
 `;
 
 const Inner = styled.div<InnerProps>`
-  opacity: ${props => props.open ? '100%' : '0%'};
-  transition: all .5s ease-in-out;
   position: absolute;
   top: ${props => props.width
     ? props.width + 30
@@ -133,6 +150,7 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
     return (
       <AnimationMenuWrapper
         ref={this.menuRef}
+        open={open}
       >
         <Stick
           open={open}
@@ -142,13 +160,14 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
           height={height}
           onClick={this.handleClick}
         />
-        <Inner
-          open={open}
-          width={width}
-          xOffset={xOffset}
-        >
-          {elements}
-        </Inner>
+        <Outer open={open}>
+          <Inner
+            width={width}
+            xOffset={xOffset}
+          >
+            {elements}
+          </Inner>
+        </Outer>
       </AnimationMenuWrapper>
     )
   }

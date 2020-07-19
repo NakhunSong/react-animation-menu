@@ -28,6 +28,7 @@ const StickOuterWrapper = styled.div<StickWrapperProps>`
     : 6}px;
   cursor: pointer;
   transition: all ${props => props.duration}s ease-in-out;
+  z-index: 1000;
 `;
 
 const StickWrapper = styled.div<StickProps>`
