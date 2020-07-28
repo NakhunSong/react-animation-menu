@@ -1,8 +1,8 @@
 {
   "name": "react-animation-menu",
-  "version": "0.1.13",
-  "description": "Then Menu that is transformed when it has clicked",
-  "keywords": ["npm", "react", "ui", "library", "menu", "animation"],
+  "version": "0.1.15",
+  "description": "This React Component Library provide the animated burger icon and menu which are transformed when it has clicked.",
+  "keywords": ["npm", "react", "ui", "library", "menu", "animation", "burger"],
   "homepage": "https://github.com/Nakhunsong/react-animation-menu",
   "repository": {
     "type": "git",

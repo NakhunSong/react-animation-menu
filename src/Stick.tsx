@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface StickWrapperProps {
   duration: string;
   width: number;
+  right: boolean;
 }
 
 interface StickProps {
@@ -12,6 +13,7 @@ interface StickProps {
   duration: string;
   width: number;
   height: number;
+  right?: boolean;
   onClick?: any;
 };
 
@@ -29,6 +31,8 @@ const StickOuterWrapper = styled.div<StickWrapperProps>`
   cursor: pointer;
   transition: all ${props => props.duration}s ease-in-out;
   z-index: 1000;
+
+  ${props => props.right && 'right: 0;'}
 `;
 
 const StickWrapper = styled.div<StickProps>`
@@ -85,6 +89,7 @@ const Stick = (props: any) => {
     duration,
     width,
     height,
+    right,
     onClick,
   } = props;
 
@@ -92,6 +97,7 @@ const Stick = (props: any) => {
     <StickOuterWrapper
       duration={duration}
       width={width}
+      right={right}
       onClick={onClick}
     >
       <StickWrapper

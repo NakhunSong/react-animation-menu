@@ -1,7 +1,7 @@
 # react-animation-menu
 This is a Menu Icon Component. The Icon is transformed and the Menu List appear or disappear with animation effect when it is clicked.
 
-![alt text](./static/img/photo.gif)
+![photo](./static/img/photo.gif)
 
 ## Install
 ```
@@ -47,52 +47,65 @@ export default function App() {
 
 ## Props
 
-#### color : string | default "black"
-```jsx
-<Menu color="green" />
+- color (string | default "black")
+
+- duration (Number | default 500)
+: The value of 500 is transformed to 0.5s by being divided by 1000
+
+- width (Number | default 50)
+: This will affect the Menu Icon Wrapper size.
+
+- height (Number | default 6)
+
+- elements (children | default null)
+
+- xOffset (Number | default 15)
+: This prop affects x-offset of the text list wrapper on the menu.
+
+- yOffset (Number | default 15)
+: This prop affects y-offset of the text list wrapper on the menu.
+
+- onClick (function | default undefined)
+
+- right (default null)
+: If you use this props, the burger icon and the element component will appear from the right side.
+
+## MenuList
+```
+import { MenuList } from 'react-animation-menu'
 ```
 
-#### duration : Number | default 500
+### Group : Component
 ```jsx
-<Menu duration={500} />
-```
-> The value of 500 is transformed to 0.5s by being divided by 1000
+import { MenuList } from 'react-animation-menu'
+const { Group } = MenuList
 
-#### width : Number | default 50
-```jsx
-<Menu width="100" />
+<Group style={{ marginRight: '20px' }}>
+  <p>Menu1</p>
+  <p>Menu2</p>
+</Group>
 ```
-> This will affect the Menu Icon Wrapper size.
+- style - If you use 'style' props on this Component, the build-in style does not apply.
 
-#### height: Number | default 6
+### Item : Component
 ```jsx
-<Menu height="10" />
-```
+import { MenuList } from 'react-animation-menu'
+const { Group, Item } = MenuList
 
-#### elements: children | default null
-```jsx
-<Menu
-  elements={(
-    <Group>
-      <Item>Menu Item1</Item>
-    </Group>
-  )}
-/>
-```
+const handleClick = () => console.log('Hello')
 
-#### xOffset: Number | default 15
-- This prop affects x-offset of the text list wrapper on the menu.
-```jsx
-<Menu xOffset="30" />
+<Group>
+  <Item
+    onClick={handleClick}
+  >
+    Menu1
+  </Item>
+  <Item
+    style={{ marginLeft: '20px' }}
+  >
+    Menu2
+  </Item>
+</Group>
 ```
-
-#### yOffset: Number | default 15
-- This prop affects y-offset of the text list wrapper on the menu.
-```jsx
-<Menu yOffset="30" />
-```
-
-#### onClick : function | default undefined
-```jsx
-<Menu onClick={handleClick} />
-```
+- style - If you use 'style' props on this Component, the build-in style does not apply.
+- onClick - The function is fired by clicking this Component.

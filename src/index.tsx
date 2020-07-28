@@ -13,6 +13,7 @@ interface IProps {
   height?: number;
   xOffset?: number;
   yOffset?: number;
+  right?: any;
   onClick?: () => void
 }
 
@@ -24,6 +25,7 @@ interface IState {
   height: number;
   xOffset: number;
   yOffset: number;
+  right: boolean;
 }
 
 interface AnimationMenuWrapperProps {
@@ -31,6 +33,10 @@ interface AnimationMenuWrapperProps {
 }
 
 interface OuterProps {
+  open: boolean;
+}
+
+interface OuterRightProps {
   open: boolean;
 }
 
@@ -42,6 +48,9 @@ interface InnerProps {
 
 const AnimationMenuWrapper = styled.div<AnimationMenuWrapperProps>`
   position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 `;
 
 const Outer = styled.div<OuterProps>`
@@ -49,10 +58,29 @@ const Outer = styled.div<OuterProps>`
   transition: all .4s ease-in-out;
   width: 300px;
   height: 100vh;
-  ${props => props.open
-    ? 'left: 0;'
-    : 'left: -300px;'}
+  left: ${props => props.open
+    ? '0'
+    : '-300px'};
+  opacity: ${props => props.open
+    ? `100`
+    : '0'};
   background: white;
+  border-right: 1px solid #e9e9e9;
+`;
+
+const OuterRight = styled.div<OuterRightProps>`
+  position: absolute;
+  transition: all .4s ease-out;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  right: 0px;
+  opacity: ${props => props.open
+    ? `100`
+    : '0'};
+  right: ${props => props.open
+    ? '0px'
+    : '-300px'};
   border-right: 1px solid #e9e9e9;
 `;
 
@@ -74,6 +102,7 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
       height: props.height || 6,
       xOffset: props.xOffset || 15,
       yOffset: props.yOffset || 15,
+      right: props.right ? true : false,
     };
     this.menuRef = React.createRef();
     this.closeMenu = this.closeMenu.bind(this);
@@ -150,8 +179,11 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
       height,
       xOffset,
       yOffset,
+      right,
     } = this.state;
-    const { elements } = this.props;
+    const {
+      elements,
+    } = this.props;
 
     return (
       <AnimationMenuWrapper
@@ -164,17 +196,31 @@ class AnimationMenu extends React.PureComponent<IProps, IState> {
           duration={duration}
           width={width}
           height={height}
+          right={right}
           onClick={this.handleClick}
         />
-        <Outer open={open}>
-          <Inner
-            width={width}
-            xOffset={xOffset}
-            yOffset={yOffset}
-          >
-            {elements}
-          </Inner>
-        </Outer>
+        {right
+          ? (
+            <OuterRight open={open}>
+              <Inner
+                width={width}
+                xOffset={xOffset}
+                yOffset={yOffset}
+              >
+                {elements}
+              </Inner>
+            </OuterRight>
+          ) : (
+            <Outer open={open}>
+              <Inner
+                width={width}
+                xOffset={xOffset}
+                yOffset={yOffset}
+              >
+                {elements}
+              </Inner>
+            </Outer>
+          )}
       </AnimationMenuWrapper>
     )
   }
